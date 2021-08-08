@@ -1,10 +1,11 @@
-package com.salazarev.hw19mvvmkotlindocokhttprxjava.list.rv
+package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.view.Item
 
 class ItemAdapter(private var items: List<Item>, private val clickListener: ClickListener) :
     RecyclerView.Adapter<ItemViewHolder>() {
@@ -17,7 +18,7 @@ class ItemAdapter(private var items: List<Item>, private val clickListener: Clic
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = items[position]
-        holder.setData(item.text)
+        holder.setData(item.date)
         holder.setOnClick { clickListener.onClick(item.id) }
     }
 

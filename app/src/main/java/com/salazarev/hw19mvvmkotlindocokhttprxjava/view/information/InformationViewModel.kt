@@ -1,4 +1,4 @@
-package com.salazarev.hw19mvvmkotlindocokhttprxjava.information
+package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information
 
 import androidx.lifecycle.ViewModel
 

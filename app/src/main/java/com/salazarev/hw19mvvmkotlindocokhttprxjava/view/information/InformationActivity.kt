@@ -1,10 +1,10 @@
-package com.salazarev.hw19mvvmkotlindocokhttprxjava.information
+package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityInformationBinding
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.list.ListActivity
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListActivity
 
 class InformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInformationBinding

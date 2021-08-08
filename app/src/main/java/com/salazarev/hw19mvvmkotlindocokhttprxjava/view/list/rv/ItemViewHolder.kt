@@ -1,4 +1,4 @@
-package com.salazarev.hw19mvvmkotlindocokhttprxjava.list.rv
+package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv
 
 import android.view.View
 import android.widget.TextView

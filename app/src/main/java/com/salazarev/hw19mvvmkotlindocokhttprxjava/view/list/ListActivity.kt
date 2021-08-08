@@ -1,4 +1,4 @@
-package com.salazarev.hw19mvvmkotlindocokhttprxjava.list
+package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityListBinding
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.information.InformationActivity
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.list.rv.ClickListener
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.list.rv.ItemAdapter
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ClickListener
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ItemAdapter
 
 private lateinit var binding: ActivityListBinding
 private lateinit var listViewModel: ListViewModel
