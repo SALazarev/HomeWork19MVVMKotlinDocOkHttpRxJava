@@ -2,9 +2,12 @@ package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityInformationBinding
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.domain.Quotation
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListActivity
 
@@ -26,18 +29,36 @@ class InformationActivity : BaseActivity() {
             }
         }).get(InformationViewModel::class.java)
 
-        viewModel.quotation.observe(this, {
-            val text = "$it PLN"
-            binding.tvGoldCost.text = text
-        })
+        setObservers()
+    }
 
-        viewModel.progress.observe(this, { showProgress ->
-            val visible = when (showProgress) {
-                true -> View.VISIBLE
-                false -> View.GONE
+    private fun setObservers() {
+        viewModel.quotation.observe(this, ::showData)
+        viewModel.progress.observe(this, ::showProgress)
+        viewModel.errors.observe(this, ::showError)
+    }
+
+    private fun showData(data: Quotation) {
+        val mainText = "${resources.getString(R.string.gold_cost_in_poland_on)} ${data.date}:"
+        val priceText = "${data.price} PLN"
+        binding.tvTextHead.text = mainText
+        binding.tvGoldCost.text = priceText
+    }
+
+    private fun showError(error: Throwable) {
+        AlertDialog.Builder(this).apply {
+            setTitle(error.javaClass.canonicalName)
+            setMessage(error.message)
+            setPositiveButton("Попробовать снова") { dialog, _ ->
+                viewModel.tryAgain()
+                dialog.cancel()
             }
-            binding.pbProgress.visibility = visible
-        })
+            create()
+            show()
+        }
+    }
 
+    private fun showProgress(visible: Boolean) {
+        binding.pbProgress.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }

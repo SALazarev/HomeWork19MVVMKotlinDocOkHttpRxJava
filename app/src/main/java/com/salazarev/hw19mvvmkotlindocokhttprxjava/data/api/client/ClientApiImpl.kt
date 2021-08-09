@@ -7,8 +7,10 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
-class ClientApiImpl(private val okHttpClient: OkHttpClient, private val jsonWorker: JsonWorker) :
-    ClientApi {
+class ClientApiImpl(
+    private val okHttpClient: OkHttpClient,
+    private val jsonWorker: JsonWorker
+) : ClientApi {
 
     override fun getItem(date: String): QuotationResponse {
         return jsonWorker.getObject(request(NbpUrl.itemUrl(date)), QuotationResponse::class.java)
@@ -25,21 +27,6 @@ class ClientApiImpl(private val okHttpClient: OkHttpClient, private val jsonWork
         val request = Request.Builder()
             .url(url)
             .build()
-        return handleResponse(request)
-    }
-
-
-    private fun handleResponse(request: Request): String {
-        val response: Response = okHttpClient.newCall(request).execute()
-        response.use {
-            return try {
-                if (response.isSuccessful) {
-                    val body = response.body
-                    body?.string() ?: "No content"
-                } else "Response code: ${response.code}"
-            } catch (e: Exception) {
-                e.toString()
-            }
-        }
+        return  okHttpClient.newCall(request).execute().body?.string().orEmpty()
     }
 }

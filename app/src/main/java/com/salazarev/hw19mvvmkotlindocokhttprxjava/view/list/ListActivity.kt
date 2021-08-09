@@ -1,16 +1,18 @@
 package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityListBinding
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.view.QuotationListItem
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ClickListener
@@ -35,29 +37,46 @@ class ListActivity : BaseActivity() {
             }
         }).get(ListViewModel::class.java)
 
-
-
         binding.rvItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.rvItems.addItemDecoration(
-            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
         )
+        setObservers()
+    }
 
-        viewModel.quotations.observe(this, {
-            binding.rvItems.adapter = ItemAdapter(it, object : ClickListener {
-                override fun onClick(id: String) {
-                    startInformationActivity(id)
-                }
+    private fun setObservers() {
+        viewModel.quotations.observe(this, this::showData)
+        viewModel.progress.observe(this, this::showProgress)
+        viewModel.errors.observe(this, this::showError)
 
-            })
-        })
+    }
 
-        viewModel.progress.observe(this, { showProgress ->
-            val visible = when (showProgress) {
-                true -> View.VISIBLE
-                false -> View.GONE
+    private fun showData(data: List<QuotationListItem>) {
+        binding.rvItems.adapter = ItemAdapter(data, object : ClickListener {
+            override fun onClick(id: String) {
+                startInformationActivity(id)
             }
-            binding.pbProgress.visibility = visible
         })
+    }
+
+    private fun showProgress(visible: Boolean) {
+        binding.pbProgress.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(error: Throwable) {
+        AlertDialog.Builder(this).apply {
+            setTitle(error.javaClass.canonicalName)
+            setMessage(error.message)
+            setPositiveButton(getString(R.string.try_again)) { dialog, _ ->
+                viewModel.tryAgain()
+                dialog.cancel()
+            }
+            create()
+            show()
+        }
     }
 
     private fun startInformationActivity(id: String) {

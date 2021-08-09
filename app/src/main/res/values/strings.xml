@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HomeWork19MVVMKotlinDocOkHttpRxJava</string>
-    <string name="gold_cost_in_poland">Стоимость золота в Польше:</string>
+    <string name="gold_cost_in_poland_on">Стоимость золота в Польше на</string>
+    <string name="try_again">Попробовать снова</string>
 </resources>
