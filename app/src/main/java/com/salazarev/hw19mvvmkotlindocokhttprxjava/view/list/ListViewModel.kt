@@ -8,8 +8,16 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
+/**
+ * ViewModel экрана информации о котировке.
+ * @param interactor Объект работы с котировками цен на золото.
+ * @constructor Загрузка данных из сети.
+ */
 class ListViewModel(private val interactor: QuotationInteractor) : BaseViewModel() {
 
+    /**
+     * Наблюдаемое хранилище данных котировок цен на золото.
+     */
     val quotations = MutableLiveData<List<QuotationListItem>>()
 
     init {
@@ -18,7 +26,7 @@ class ListViewModel(private val interactor: QuotationInteractor) : BaseViewModel
 
     private fun loadQuotationList() {
         val productsList: Single<List<QuotationListItem>> = Single.fromCallable {
-            return@fromCallable interactor.getLast30Quotation()
+            return@fromCallable interactor.getQuotationList()
         }
             .map { it.map { quotation -> QuotationListItem(quotation.date) } }
             .subscribeOn(Schedulers.io())
@@ -27,11 +35,11 @@ class ListViewModel(private val interactor: QuotationInteractor) : BaseViewModel
             .doOnSubscribe { progress.value = true }
 
         productsList
-            .subscribe(quotations::setValue,errors::setValue)
+            .subscribe(quotations::setValue, errors::setValue)
             .addTo(compositeDisposable)
     }
 
-    fun tryAgain() {
+    override fun tryAgain() {
         loadQuotationList()
     }
 }

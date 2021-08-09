@@ -7,7 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.view.QuotationListItem
 
-class ItemAdapter(private var quotationListItems: List<QuotationListItem>, private val clickListener: ClickListener) :
+/**
+ * Адаптер списка котировок
+ * @param quotationListItems Список котировок
+ */
+class ItemAdapter(
+    private var quotationListItems: List<QuotationListItem>,
+    private val clickListener: ClickListener
+) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {

@@ -14,7 +14,14 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
+/**
+ * Базовый абстрактный клас активити.
+ */
 abstract class BaseActivity : AppCompatActivity() {
+    /**
+     * Метод предоставления зависимостей.
+     * @return Объект работы с котировками цен на золото.
+     */
     protected fun getDependency(): QuotationInteractor {
         val moshi: Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())

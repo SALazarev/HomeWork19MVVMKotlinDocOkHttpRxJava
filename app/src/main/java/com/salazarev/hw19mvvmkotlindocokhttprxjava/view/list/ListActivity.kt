@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,9 +17,15 @@ import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationA
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ClickListener
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ItemAdapter
 
+/**
+ * Активити списка котировок. Показывает дату каждой котировки.
+ */
 class ListActivity : BaseActivity() {
     companion object {
-        const val ID = "ID"
+        /**
+         * Ключ даты котировки.
+         */
+        const val DATE = "DATE"
     }
 
     private lateinit var binding: ActivityListBinding
@@ -81,7 +86,7 @@ class ListActivity : BaseActivity() {
 
     private fun startInformationActivity(id: String) {
         val intent = Intent(this, InformationActivity::class.java).apply {
-            putExtra(ID, id)
+            putExtra(DATE, id)
         }
         startActivity(intent)
     }

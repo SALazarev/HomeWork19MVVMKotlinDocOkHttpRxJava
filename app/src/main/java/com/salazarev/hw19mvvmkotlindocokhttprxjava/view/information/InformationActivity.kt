@@ -11,6 +11,9 @@ import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.domain.Quotation
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListActivity
 
+/**
+ * Активити информации о котировке. Показывает дату котировки и цену золота.
+ */
 class InformationActivity : BaseActivity() {
     private lateinit var binding: ActivityInformationBinding
 
@@ -21,7 +24,7 @@ class InformationActivity : BaseActivity() {
         binding = ActivityInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val id =
-            if (intent.hasExtra(ListActivity.ID)) intent.getStringExtra(ListActivity.ID) else ""
+            if (intent.hasExtra(ListActivity.DATE)) intent.getStringExtra(ListActivity.DATE) else ""
 
         viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {

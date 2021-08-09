@@ -4,7 +4,11 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
-class JsonWorkerImpl(private val moshi: Moshi): JsonWorker {
+/**
+ * Класс обработки запросов json.
+ * @param moshi Преобразователь json запросов в объекты.
+ */
+class JsonWorkerImpl(private val moshi: Moshi) : JsonWorker {
     override fun <T> getObjectList(request: String, classType: Class<T>): List<T> {
         val typeAdapter = Types.newParameterizedType(List::class.java, classType)
         val jsonAdapter: JsonAdapter<List<T>> = moshi.adapter(typeAdapter)
