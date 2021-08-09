@@ -19,7 +19,7 @@ class ItemAdapter(private var items: List<Item>, private val clickListener: Clic
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = items[position]
         holder.setData(item.date)
-        holder.setOnClick { clickListener.onClick(item.id) }
+        holder.setOnClick { clickListener.onClick(item.date) }
     }
 
     override fun getItemCount(): Int {

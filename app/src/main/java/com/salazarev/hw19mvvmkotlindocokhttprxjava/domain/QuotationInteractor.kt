@@ -1,11 +1,11 @@
 package com.salazarev.hw19mvvmkotlindocokhttprxjava.domain
-
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.data.api.ClientApi
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.data.api.OkHttpApi
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.data.repository.ClientRepository
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.data.repository.ClientRepositoryImpl
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.data.Quotation
 
 class QuotationInteractor {
-    private var clientApi: ClientApi = OkHttpApi()
+    val repo: ClientRepository = ClientRepositoryImpl()
 
-    fun getQuotation(): List<Quotation> = clientApi.getObject(clientApi.request())
+    fun getLast30Quotation(): List<Quotation> = repo.getLast30Quotation()
+    fun getQuotation(date: String): Quotation = repo.getQuotation(date)
 }
