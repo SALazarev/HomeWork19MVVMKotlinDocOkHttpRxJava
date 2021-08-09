@@ -3,13 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.information.InformationActivity"
-    android:layout_gravity="center">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.information.InformationActivity">
 
     <TextView
-        android:id="@+id/tv_text"
+        android:id="@+id/tv_text_head"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="36sp"/>
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:text="@string/gold_cost_in_poland"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tv_gold_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_text_head"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

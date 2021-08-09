@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.view.Item
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.view.QuotationListItem
 
-class ItemAdapter(private var items: List<Item>, private val clickListener: ClickListener) :
+class ItemAdapter(private var quotationListItems: List<QuotationListItem>, private val clickListener: ClickListener) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -17,12 +17,12 @@ class ItemAdapter(private var items: List<Item>, private val clickListener: Clic
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = items[position]
+        val item = quotationListItems[position]
         holder.setData(item.date)
         holder.setOnClick { clickListener.onClick(item.date) }
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return quotationListItems.size
     }
 }

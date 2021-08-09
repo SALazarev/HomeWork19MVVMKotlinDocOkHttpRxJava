@@ -1,21 +1,19 @@
 package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list
 
-import android.R
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityListBinding
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ClickListener
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ItemAdapter
 
-
-class ListActivity : AppCompatActivity() {
-
+class ListActivity : BaseActivity() {
     companion object {
         const val ID = "ID"
     }
@@ -28,7 +26,14 @@ class ListActivity : AppCompatActivity() {
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ListViewModel(getDependency()) as T
+            }
+        }).get(ListViewModel::class.java)
+
+
+
         binding.rvItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.rvItems.addItemDecoration(
             DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
@@ -50,4 +55,6 @@ class ListActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+
+
 }

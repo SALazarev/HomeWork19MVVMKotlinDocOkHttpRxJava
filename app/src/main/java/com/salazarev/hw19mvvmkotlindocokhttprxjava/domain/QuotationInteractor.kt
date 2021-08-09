@@ -1,11 +1,12 @@
 package com.salazarev.hw19mvvmkotlindocokhttprxjava.domain
+
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.data.repository.ClientRepository
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.data.repository.ClientRepositoryImpl
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.data.Quotation
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.domain.Quotation
 
-class QuotationInteractor {
-    val repo: ClientRepository = ClientRepositoryImpl()
+class QuotationInteractor(private val repo: ClientRepository) {
+    fun getLast30Quotation(): List<Quotation> =
+        repo.getListQuotation().map { Quotation(it.date, it.price) }
 
-    fun getLast30Quotation(): List<Quotation> = repo.getLast30Quotation()
-    fun getQuotation(date: String): Quotation = repo.getQuotation(date)
+    fun getQuotation(date: String): Quotation =
+        repo.getQuotation(date).let { Quotation(it.date, it.price) }
 }
