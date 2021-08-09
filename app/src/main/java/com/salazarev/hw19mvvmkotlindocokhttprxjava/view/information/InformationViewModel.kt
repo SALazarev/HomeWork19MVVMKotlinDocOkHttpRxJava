@@ -10,21 +10,21 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class InformationViewModel(interactor: QuotationInteractor, id: String) : ViewModel() {
 
-    val liveData = MutableLiveData<Double>()
+    val quotation = MutableLiveData<Double>()
+    val progress = MutableLiveData<Boolean>()
 
     init {
-
         val productsList: Single<Quotation> = Single.fromCallable {
             return@fromCallable interactor.getQuotation(id)
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doFinally { progress.value = false }
+            .doOnSubscribe { progress.value = true }
 
         productsList.subscribe { item: Quotation, throwable: Throwable? ->
-            if (throwable == null) liveData.postValue(item.price)
+            if (throwable == null) quotation.postValue(item.price)
         }
-
-
     }
 
 }

@@ -1,6 +1,7 @@
 package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityInformationBinding
@@ -25,9 +26,17 @@ class InformationActivity : BaseActivity() {
             }
         }).get(InformationViewModel::class.java)
 
-        viewModel.liveData.observe(this, {
+        viewModel.quotation.observe(this, {
             val text = "$it PLN"
             binding.tvGoldCost.text = text
+        })
+
+        viewModel.progress.observe(this, { showProgress ->
+            val visible = when (showProgress) {
+                true -> View.VISIBLE
+                false -> View.GONE
+            }
+            binding.pbProgress.visibility = visible
         })
 
     }

@@ -1,7 +1,10 @@
 package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
+import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -39,13 +42,21 @@ class ListActivity : BaseActivity() {
             DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         )
 
-        viewModel.liveData.observe(this, {
+        viewModel.quotations.observe(this, {
             binding.rvItems.adapter = ItemAdapter(it, object : ClickListener {
                 override fun onClick(id: String) {
                     startInformationActivity(id)
                 }
 
             })
+        })
+
+        viewModel.progress.observe(this, { showProgress ->
+            val visible = when (showProgress) {
+                true -> View.VISIBLE
+                false -> View.GONE
+            }
+            binding.pbProgress.visibility = visible
         })
     }
 
@@ -55,6 +66,5 @@ class ListActivity : BaseActivity() {
         }
         startActivity(intent)
     }
-
 
 }

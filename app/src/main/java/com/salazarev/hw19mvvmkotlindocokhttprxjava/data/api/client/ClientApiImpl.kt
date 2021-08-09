@@ -1,8 +1,8 @@
 package com.salazarev.hw19mvvmkotlindocokhttprxjava.data.api.client
 
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.data.api.JsonWorker
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.data.api.url.NbpUrl
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.data.QuotationResponse
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.util.json.JsonWorker
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
