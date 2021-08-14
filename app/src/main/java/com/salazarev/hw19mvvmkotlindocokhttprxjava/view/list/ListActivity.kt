@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.ProjectApp
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityListBinding
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.domain.QuotationInteractor
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.view.QuotationListItem
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.ListViewModelFactory
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ClickListener
@@ -24,7 +22,7 @@ import javax.inject.Inject
 /**
  * Активити списка котировок. Показывает дату каждой котировки.
  */
-class ListActivity : BaseActivity() {
+class ListActivity : AppCompatActivity() {
     companion object {
         /**
          * Ключ даты котировки.

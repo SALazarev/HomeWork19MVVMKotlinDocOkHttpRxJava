@@ -14,6 +14,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 internal interface AppModule {
@@ -26,7 +27,7 @@ internal interface AppModule {
         }
 
         @Provides
-        fun provideOkHttp(): OkHttpClient{
+        fun provideOkHttp(): OkHttpClient {
             return OkHttpClient().newBuilder()
                 .readTimeout(5000, TimeUnit.MILLISECONDS)
                 .writeTimeout(5000, TimeUnit.MILLISECONDS)
@@ -34,10 +35,13 @@ internal interface AppModule {
                 .build()
         }
     }
+
     @Binds
     fun bindClientRepository(repo: ClientRepositoryImpl): ClientRepository
+
     @Binds
     fun bindClientApi(repo: ClientApiImpl): ClientApi
+
     @Binds
     fun bindJsonWorker(repo: JsonWorkerImpl): JsonWorker
 }

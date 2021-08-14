@@ -1,17 +1,19 @@
-package com.salazarev.hw19mvvmkotlindocokhttprxjava.di
+package com.salazarev.hw19mvvmkotlindocokhttprxjava.di.viewmodel
 
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity
 import dagger.BindsInstance
-import dagger.Component
+import dagger.Subcomponent
 import javax.inject.Named
 
-@Component(modules = [AppModule::class])
+@ViewModelScope
+@Subcomponent
 interface ViewModelComponent {
-    @Component.Builder
+    @Subcomponent.Builder
     interface Builder {
         @BindsInstance
         fun id(@Named("id") id: String): Builder
         fun build(): ViewModelComponent
     }
+
     fun inject(informationActivity: InformationActivity)
 }

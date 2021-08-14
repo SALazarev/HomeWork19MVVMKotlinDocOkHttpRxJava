@@ -32,6 +32,6 @@ class ClientApiImpl @Inject constructor(
         val request = Request.Builder()
             .url(url)
             .build()
-        return  okHttpClient.newCall(request).execute().body?.string().orEmpty()
+        return okHttpClient.newCall(request).execute().body?.string().orEmpty()
     }
 }

@@ -7,7 +7,8 @@ import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListViewModel
 import javax.inject.Inject
 
 
-class ListViewModelFactory @Inject constructor(private val interactor: QuotationInteractor) : ViewModelProvider.Factory {
+class ListViewModelFactory @Inject constructor(private val interactor: QuotationInteractor) :
+    ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(aClass: Class<T>): T {

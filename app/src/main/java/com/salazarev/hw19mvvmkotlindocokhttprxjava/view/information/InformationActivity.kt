@@ -3,24 +3,20 @@ package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.ProjectApp
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityInformationBinding
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.di.DaggerViewModelComponent
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.domain.QuotationInteractor
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.domain.Quotation
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.InformationViewModelFactory
-import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.ListViewModelFactory
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListActivity
 import javax.inject.Inject
 
 /**
  * Активити информации о котировке. Показывает дату котировки и цену золота.
  */
-class InformationActivity : BaseActivity() {
+class InformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInformationBinding
 
     private lateinit var viewModel: InformationViewModel
@@ -46,7 +42,7 @@ class InformationActivity : BaseActivity() {
     private fun provideDependencies() {
         val id =
             if (intent.hasExtra(ListActivity.DATE)) intent.getStringExtra(ListActivity.DATE) else ""
-        DaggerViewModelComponent.builder().id(id).build().inject(this)
+        ProjectApp.getAppComponent(this).getViewModelComponent().id(id).build().inject(this)
     }
 
     private fun setObservers() {

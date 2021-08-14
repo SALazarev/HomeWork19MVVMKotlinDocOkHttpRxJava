@@ -14,7 +14,8 @@ import javax.inject.Inject
  * @param interactor Объект работы с котировками цен на золото.
  * @constructor Загрузка данных из сети.
  */
-class ListViewModel @Inject constructor(private val interactor: QuotationInteractor) : BaseViewModel() {
+class ListViewModel @Inject constructor(private val interactor: QuotationInteractor) :
+    BaseViewModel() {
 
     /**
      * Наблюдаемое хранилище данных котировок цен на золото.

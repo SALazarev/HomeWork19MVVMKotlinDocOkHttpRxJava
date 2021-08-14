@@ -7,7 +7,8 @@ import javax.inject.Inject
 /**
  * Репозиторий для работы с данными котировок из сети.
  */
-class ClientRepositoryImpl @Inject constructor(private val clientApi: ClientApi) : ClientRepository {
+class ClientRepositoryImpl @Inject constructor(private val clientApi: ClientApi) :
+    ClientRepository {
     override fun getListQuotation(): List<QuotationResponse> = clientApi.getItemList()
     override fun getQuotation(date: String): QuotationResponse = clientApi.getItem(date)
 }
