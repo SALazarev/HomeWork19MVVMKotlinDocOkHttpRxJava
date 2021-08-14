@@ -20,8 +20,8 @@ interface AppComponent {
 //        ): AppComponent
 //    }
 
-    fun inject(informationActivity: InformationActivity)
     fun inject(listActivity: ListActivity)
+//    fun getViewModelComponent(): ViewModelComponent
 
 //    @Component.Builder
 //    interface Builder{

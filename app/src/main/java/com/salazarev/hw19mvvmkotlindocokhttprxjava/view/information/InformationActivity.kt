@@ -8,9 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.ProjectApp
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityInformationBinding
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.di.DaggerViewModelComponent
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.domain.QuotationInteractor
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.domain.Quotation
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.InformationViewModelFactory
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.ListViewModelFactory
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListActivity
 import javax.inject.Inject
 
@@ -23,7 +26,7 @@ class InformationActivity : BaseActivity() {
     private lateinit var viewModel: InformationViewModel
 
     @Inject
-    lateinit var interactor: QuotationInteractor
+    lateinit var informationViewModelFactory: InformationViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +34,19 @@ class InformationActivity : BaseActivity() {
         setContentView(binding.root)
 
         provideDependencies()
-        val id =
-            if (intent.hasExtra(ListActivity.DATE)) intent.getStringExtra(ListActivity.DATE) else ""
 
-        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return InformationViewModel(getDependency(), id) as T
-            }
-        }).get(InformationViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            informationViewModelFactory
+        ).get(InformationViewModel::class.java)
 
         setObservers()
     }
 
     private fun provideDependencies() {
-        ProjectApp.getAppComponent(this).inject(this)
+        val id =
+            if (intent.hasExtra(ListActivity.DATE)) intent.getStringExtra(ListActivity.DATE) else ""
+        DaggerViewModelComponent.builder().id(id).build().inject(this)
     }
 
     private fun setObservers() {
