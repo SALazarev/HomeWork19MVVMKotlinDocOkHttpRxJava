@@ -15,6 +15,7 @@ import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityListBindi
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.domain.QuotationInteractor
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.view.QuotationListItem
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.ListViewModelFactory
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ClickListener
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ItemAdapter
@@ -36,7 +37,7 @@ class ListActivity : BaseActivity() {
     private lateinit var viewModel: ListViewModel
 
     @Inject
-    lateinit var interactor: QuotationInteractor
+    lateinit var listViewModelFactory: ListViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +46,7 @@ class ListActivity : BaseActivity() {
 
         provideDependencies()
 
-        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ListViewModel(getDependency()) as T
-            }
-        }).get(ListViewModel::class.java)
+        viewModel = ViewModelProvider(this, listViewModelFactory).get(ListViewModel::class.java)
 
         binding.rvItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.rvItems.addItemDecoration(
@@ -62,7 +59,7 @@ class ListActivity : BaseActivity() {
     }
 
     private fun provideDependencies() {
-        ProjectApp.component.inject(this)
+        ProjectApp.getAppComponent(this).inject(this)
     }
 
     private fun setObservers() {

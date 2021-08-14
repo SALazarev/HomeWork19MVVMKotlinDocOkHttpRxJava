@@ -44,7 +44,7 @@ class InformationActivity : BaseActivity() {
     }
 
     private fun provideDependencies() {
-        ProjectApp.component.inject(this)
+        ProjectApp.getAppComponent(this).inject(this)
     }
 
     private fun setObservers() {
