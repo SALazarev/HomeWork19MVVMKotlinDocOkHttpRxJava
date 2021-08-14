@@ -7,6 +7,7 @@ import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * ViewModel экрана информации о котировке.
@@ -14,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
  * @param date Дата котировки.
  * @constructor Загрузка данных из сети.
  */
-class InformationViewModel(
+class InformationViewModel @Inject constructor(
     private val interactor: QuotationInteractor,
     private val date: String
 ) : BaseViewModel() {

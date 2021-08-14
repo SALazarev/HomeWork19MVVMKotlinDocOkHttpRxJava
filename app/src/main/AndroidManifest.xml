@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".ProjectApp">
         <activity android:name="com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity" />
         <activity android:name="com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListActivity">
             <intent-filter>

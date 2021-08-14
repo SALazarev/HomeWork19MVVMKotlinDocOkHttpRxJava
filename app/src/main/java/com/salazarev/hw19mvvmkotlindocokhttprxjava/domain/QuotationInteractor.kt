@@ -2,11 +2,12 @@ package com.salazarev.hw19mvvmkotlindocokhttprxjava.domain
 
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.data.repository.ClientRepository
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.domain.Quotation
+import javax.inject.Inject
 
 /**
  * Класс работы с котировками цен на золото.
  */
-class QuotationInteractor(private val repo: ClientRepository) {
+class QuotationInteractor @Inject constructor(private val repo: ClientRepository) {
     /**
      * Метод загрузки списка котировок цен на золото.
      * @return Список котировок.

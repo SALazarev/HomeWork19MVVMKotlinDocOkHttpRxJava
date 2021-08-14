@@ -9,13 +9,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.ProjectApp
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityListBinding
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.domain.QuotationInteractor
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.view.QuotationListItem
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ClickListener
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ItemAdapter
+import javax.inject.Inject
 
 /**
  * Активити списка котировок. Показывает дату каждой котировки.
@@ -29,12 +32,18 @@ class ListActivity : BaseActivity() {
     }
 
     private lateinit var binding: ActivityListBinding
+
     private lateinit var viewModel: ListViewModel
+
+    @Inject
+    lateinit var interactor: QuotationInteractor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        provideDependencies()
 
         viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -50,6 +59,10 @@ class ListActivity : BaseActivity() {
             )
         )
         setObservers()
+    }
+
+    private fun provideDependencies() {
+        ProjectApp.component.inject(this)
     }
 
     private fun setObservers() {

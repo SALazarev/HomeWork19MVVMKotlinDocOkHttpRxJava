@@ -5,11 +5,14 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.ProjectApp
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityInformationBinding
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.domain.QuotationInteractor
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.domain.Quotation
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListActivity
+import javax.inject.Inject
 
 /**
  * Активити информации о котировке. Показывает дату котировки и цену золота.
@@ -19,10 +22,15 @@ class InformationActivity : BaseActivity() {
 
     private lateinit var viewModel: InformationViewModel
 
+    @Inject
+    lateinit var interactor: QuotationInteractor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        provideDependencies()
         val id =
             if (intent.hasExtra(ListActivity.DATE)) intent.getStringExtra(ListActivity.DATE) else ""
 
@@ -33,6 +41,10 @@ class InformationActivity : BaseActivity() {
         }).get(InformationViewModel::class.java)
 
         setObservers()
+    }
+
+    private fun provideDependencies() {
+        ProjectApp.component.inject(this)
     }
 
     private fun setObservers() {

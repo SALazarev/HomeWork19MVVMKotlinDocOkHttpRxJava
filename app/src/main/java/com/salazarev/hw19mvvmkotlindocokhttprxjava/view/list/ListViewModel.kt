@@ -7,13 +7,14 @@ import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * ViewModel экрана информации о котировке.
  * @param interactor Объект работы с котировками цен на золото.
  * @constructor Загрузка данных из сети.
  */
-class ListViewModel(private val interactor: QuotationInteractor) : BaseViewModel() {
+class ListViewModel @Inject constructor(private val interactor: QuotationInteractor) : BaseViewModel() {
 
     /**
      * Наблюдаемое хранилище данных котировок цен на золото.

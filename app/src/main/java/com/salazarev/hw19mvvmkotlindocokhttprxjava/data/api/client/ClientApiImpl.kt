@@ -5,13 +5,14 @@ import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.data.QuotationResponse
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.util.json.JsonWorker
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import javax.inject.Inject
 
 /**
  * Класс работы с сетью посредством библиотеки OkHttp.
  * @property okHttpClient Клиент работы с библиотекой OkHttp.
  * @property jsonWorker Обработчик запросов json.
  */
-class ClientApiImpl(
+class ClientApiImpl @Inject constructor(
     private val okHttpClient: OkHttpClient,
     private val jsonWorker: JsonWorker
 ) : ClientApi {
