@@ -3,32 +3,40 @@ package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.NonNull
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.IdlingResource
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.ProjectApp
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityListBinding
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.view.QuotationListItem
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.mytest.MessageDelayer
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.mytest.SimpleIdlingResource
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.ListViewModelFactory
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ClickListener
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.rv.ItemAdapter
 import javax.inject.Inject
 
+
 /**
  * Активити списка котировок. Показывает дату каждой котировки.
  */
-class ListActivity : AppCompatActivity() {
+class ListActivity : AppCompatActivity(), MessageDelayer.DelayerCallback {
     companion object {
         /**
          * Ключ даты котировки.
          */
         const val DATE = "DATE"
     }
+
+    private var idlingResource: SimpleIdlingResource? = null
 
     private lateinit var binding: ActivityListBinding
 
@@ -53,7 +61,7 @@ class ListActivity : AppCompatActivity() {
                 DividerItemDecoration.VERTICAL
             )
         )
-        setObservers()
+        MessageDelayer.processMessage("complete", this, idlingResource)
     }
 
     private fun provideDependencies() {
@@ -97,6 +105,19 @@ class ListActivity : AppCompatActivity() {
             putExtra(DATE, id)
         }
         startActivity(intent)
+    }
+
+    @VisibleForTesting
+    @NonNull
+    fun getIdlingResource(): IdlingResource? {
+        if (idlingResource == null) {
+            idlingResource = SimpleIdlingResource()
+        }
+        return idlingResource
+    }
+
+    override fun onDone(text: String?) {
+        setObservers()
     }
 
 }

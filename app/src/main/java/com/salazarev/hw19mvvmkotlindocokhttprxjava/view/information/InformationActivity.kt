@@ -2,13 +2,18 @@ package com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.NonNull
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.test.espresso.IdlingResource
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.ProjectApp
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.R
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.databinding.ActivityInformationBinding
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.models.domain.Quotation
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.mytest.MessageDelayer
+import com.salazarev.hw19mvvmkotlindocokhttprxjava.mytest.SimpleIdlingResource
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.InformationViewModelFactory
 import com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListActivity
 import javax.inject.Inject
@@ -16,10 +21,12 @@ import javax.inject.Inject
 /**
  * Активити информации о котировке. Показывает дату котировки и цену золота.
  */
-class InformationActivity : AppCompatActivity() {
+class InformationActivity : AppCompatActivity(), MessageDelayer.DelayerCallback {
     private lateinit var binding: ActivityInformationBinding
 
     private lateinit var viewModel: InformationViewModel
+
+    private var idlingResource: SimpleIdlingResource? = null
 
     @Inject
     lateinit var informationViewModelFactory: InformationViewModelFactory
@@ -36,7 +43,7 @@ class InformationActivity : AppCompatActivity() {
             informationViewModelFactory
         ).get(InformationViewModel::class.java)
 
-        setObservers()
+        MessageDelayer.processMessage("complete", this, idlingResource)
     }
 
     private fun provideDependencies() {
@@ -73,5 +80,18 @@ class InformationActivity : AppCompatActivity() {
 
     private fun showProgress(visible: Boolean) {
         binding.pbProgress.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    @VisibleForTesting
+    @NonNull
+    fun getIdlingResource(): IdlingResource? {
+        if (idlingResource == null) {
+            idlingResource = SimpleIdlingResource()
+        }
+        return idlingResource
+    }
+
+    override fun onDone(text: String?) {
+        setObservers()
     }
 }

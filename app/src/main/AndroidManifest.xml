@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".ProjectApp">
+        <uses-library android:name="android.test.runner"
+            android:required="false" />
+
         <activity android:name="com.salazarev.hw19mvvmkotlindocokhttprxjava.view.information.InformationActivity" />
         <activity android:name="com.salazarev.hw19mvvmkotlindocokhttprxjava.view.list.ListActivity">
             <intent-filter>
